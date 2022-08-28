@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 100%;
+            /* The width is the width of the web page */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Map test</h1>
+    <div id=map></div>
+
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiKy07UWL5-uQy91COa9CskHczUK_UZ58&callback=initMap"
+        type="text/javascript"></script>
+    <script>
+        console.log("Our script is running")
+        function initMap() {
+            console.log("Initializing our map")
+            // initialize our geocoder
+            geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': "The White House" }, function (results, status) {
+                if (status == 'OK') {
+                    console.log(results)
+                    const map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 4,
+                        center: (results[0].geometry.location),
+                    })
+                    var marker = new google.maps.Marker({
+                        map: map,
+                        position: results[0].geometry.location,
+                        zoom: 8
+                    });
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

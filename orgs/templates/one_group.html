@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Group</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <h1>{{group.name}}</h1>
+        <p id="location">{{group.location}}</p>
+        {% if group.members.all %}
+        <form action="/remove_member/{{group.id}}">
+            <input type="submit" value="Leave Org">
+        </form>
+        {% else %}
+        <form action="/add_member/{{group.id}}">
+            <input type="submit" value="Join Org">
+        </form>
+        {% endif %}
+        <p>{{group.description}}</p>
+        <div id=map></div>
+        <p>Creator: {{group.creator.first_name}} {{group.creator.last_name}}</p>
+        <h2>Members:</h2>
+        <ul>
+            {% for member in group.members.all %}
+            <li>{{member.first_name}} {{member.last_name}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiKy07UWL5-uQy91COa9CskHczUK_UZ58&callback=initMap"
+    type="text/javascript"></script>
+<script src={% static 'map.js' %}>
+</script>
+</body>
+</html>

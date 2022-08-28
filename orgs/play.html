@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1 id="chosen">Some Content </h1>
+    <p id="selected">Lorem asdflkajs lm ocjoijc slvmvmlkscm kllsjd ;lnsvjh kcvzmxnc zmnxc bifjsk</p>
+    <script>
+        console.log("This works")
+        console.log(document)
+        // function replace(){
+        //     console.log("this is reacting to an event")
+        //     document.getElementById("selected").innerHTML="This is the updated content"
+        // }
+        $("#chosen").click(function(e){
+            console.log(e)
+            $.ajax({
+                url: "https://swapi.dev/api/people/1",
+                method: "get",
+                success: function(serverResponse){
+                    console.log(serverResponse)
+                    document.getElementById("selected").innerHTML=`The user you have requested for: ${serverResponse.name}`
+                }
+            })
+        })
+    </script>
+</body>
+</html>
